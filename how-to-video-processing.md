@@ -1,6 +1,6 @@
 # Access to raw video frame data
 
-```
+```C#
 Process_VideoFrameBufferEvent
 #if ENABLE_VIDEO_PROCESSING
            ((VideoCapturer)videoCapturer).OnVideoFrame += (IVideoFrameBufferEvent evt) =>
