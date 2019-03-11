@@ -1,5 +1,9 @@
 # Access to raw video frame data
 
+Raw video frame data is available via the `VideoCapturer.OnVideoFrame` event.  The following code from the `PeerCC` sample application demonstrates its use.
+
+> Note: The queue below is bound to the `uiDispatcher` which means the callback will run on the UI thread.  As such it is possible to block the UI in the event handler.
+
 ```C#
 Process_VideoFrameBufferEvent
 #if ENABLE_VIDEO_PROCESSING

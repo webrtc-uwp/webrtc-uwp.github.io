@@ -12,7 +12,7 @@ The latest working branch `releases/m71`.  This branch currently includes suppor
 
 ## Branching & WebRTC.org Syncs
 
-WebRTC UWP is periodically merged with the WebRTC.org source to maintain currency.  The branches named releases/m71 are merged with the Chrome milestone of the same number.  The features and API for these releases are equivalent to those in the same version of Chrome.  For more information on the features in any given branch see the [WebRTC release notes](https://groups.google.com/forum/#!searchin/discuss-webrtc/webrtc$20release$20notes%7Csort:date).
+WebRTC UWP is periodically merged with the WebRTC.org source to maintain currency.  The branches named `releases/m71` are merged with the Chrome milestone of the same number.  The features and API for these releases are equivalent to those in the same version of Chrome.  For more information on the features in any given branch see the [WebRTC release notes](https://groups.google.com/forum/#!searchin/discuss-webrtc/webrtc$20release$20notes%7Csort:date).
 
 ## Known Issues
 
