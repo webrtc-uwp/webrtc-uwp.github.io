@@ -2,7 +2,7 @@
 
 Raw video frame data is available via the `VideoCapturer.OnVideoFrame` event.  The following code from the `PeerCC` sample application demonstrates its use.
 
-> Note: The queue below is bound to the `uiDispatcher` which means the callback will run on the UI thread.  As such it is possible to block the UI in the event handler.
+> Note: The video processing handlers are non-blocking by default.  However, to prevent slowdown in the UI it is recommended to specify `Org.WebRtc.WebRtcLibConfiguration.VideoFrameProcessingQueue` so that the handler runs on a separate thread as is done in the sample below.
 
 ```C#
 Process_VideoFrameBufferEvent
@@ -15,8 +15,6 @@ Process_VideoFrameBufferEvent
 var queue = Org.WebRtc.EventQueueMaker.Bind(uiDispatcher);
            var configuration = new Org.WebRtc.WebRtcLibConfiguration();
            configuration.Queue = queue;
-           configuration.AudioCaptureFrameProcessingQueue = Org.WebRtc.EventQueue.GetOrCreateThreadQueueByName("AudioCaptureProcessingQueue");
-           configuration.AudioRenderFrameProcessingQueue = Org.WebRtc.EventQueue.GetOrCreateThreadQueueByName("AudioRenderProcessingQueue");
            configuration.VideoFrameProcessingQueue = Org.WebRtc.EventQueue.GetOrCreateThreadQueueByName("VideoFrameProcessingQueue");
            Org.WebRtc.WebRtcLib.Setup(configuration);
 ```

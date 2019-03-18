@@ -17,7 +17,6 @@ public void Initialize(CoreDispatcher uiDispatcher)
     configuration.Queue = queue;
     configuration.AudioCaptureFrameProcessingQueue = Org.WebRtc.EventQueue.GetOrCreateThreadQueueByName("AudioCaptureProcessingQueue");
     configuration.AudioRenderFrameProcessingQueue = Org.WebRtc.EventQueue.GetOrCreateThreadQueueByName("AudioRenderProcessingQueue");
-    configuration.VideoFrameProcessingQueue = Org.WebRtc.EventQueue.GetOrCreateThreadQueueByName("VideoFrameProcessingQueue");
     Org.WebRtc.WebRtcLib.Setup(configuration);
 }
 ```
