@@ -1,10 +1,26 @@
 # Audio pre and post processing
 
-The WebRTC ADM in M71 enabled audio pre and post processing as described [here](https://bugs.chromium.org/p/webrtc/issues/detail?id=8665).  The same classes are available to managed code in WebRTC UWP via the WebRtcFactory class.  
+The WebRTC M71 release enabled audio pre and post processing as described [here](https://bugs.chromium.org/p/webrtc/issues/detail?id=8665).  The same classes are available to managed code in WebRTC UWP via the WebRtcFactory class.  
 
 > Note that pre & post processing is not available per-stream.  The filters can be specified per-WebRtcFactory.  WebRtcFactory can be instantiated multiple times per application if separate filters are needed for separate streams or PeerConnections.
 
-> These methods are necessarily blocking, as they are in Chrome.  Handlers with long execution times could cause issues in the ADM.
+These methods are necessarily blocking, as they are in Chrome.  Handlers with long execution times could cause issues.  By default, the handlers will run on the UI thread and could interfere with interactivity.  To prevent this, provide thread queues for the audio callbacks during intialization as follows:
+
+```C#
+public void Initialize(CoreDispatcher uiDispatcher)
+{
+    _uiDispatcher = uiDispatcher;
+
+    var queue = Org.WebRtc.EventQueueMaker.Bind(uiDispatcher);
+    var configuration = new Org.WebRtc.WebRtcLibConfiguration();
+
+    configuration.Queue = queue;
+    configuration.AudioCaptureFrameProcessingQueue = Org.WebRtc.EventQueue.GetOrCreateThreadQueueByName("AudioCaptureProcessingQueue");
+    configuration.AudioRenderFrameProcessingQueue = Org.WebRtc.EventQueue.GetOrCreateThreadQueueByName("AudioRenderProcessingQueue");
+    configuration.VideoFrameProcessingQueue = Org.WebRtc.EventQueue.GetOrCreateThreadQueueByName("VideoFrameProcessingQueue");
+    Org.WebRtc.WebRtcLib.Setup(configuration);
+}
+```
 
 The below sample code from `Conductor.cs` in the `PeerCC` sample demonstrates how to register for these events.
 
