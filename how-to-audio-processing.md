@@ -45,7 +45,8 @@ private void DisplayAudioBufferEvent(
 {
     var buffer = evt.Buffer;
     var data = buffer.Channel(0);
-    var array = data.Data.ToArray();
+    var array = new Int16[data.Length];
+    data.GetData(array);
 
     double scale = Math.Pow(2, 10);
 
@@ -54,6 +55,6 @@ private void DisplayAudioBufferEvent(
         array[index] = (short)(Math.Sin(totalSamples) * scale);
     }
 
-    data.Data = array;
+    data.SetData(array);
 }
 ```
